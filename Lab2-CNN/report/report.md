@@ -17,9 +17,9 @@ Net(
 
 在本次实验中，选用Adam作为优化器，学习率为0.001，训练了10个epoch，得到训练结果如图。
 
-<img src="E:\project\NKU-COSC0054-DeepLearning\Lab2-CNN\report\cnn_loss.png" alt="cnn_loss" style="zoom:150%;" />
+<img src="cnn_loss.png" alt="cnn_loss" style="zoom:150%;" />
 
-<img src="E:\project\NKU-COSC0054-DeepLearning\Lab2-CNN\report\cnn_acc.png" alt="cnn_acc" style="zoom:150%;" />
+<img src="cnn_acc.png" alt="cnn_acc" style="zoom:150%;" />
 
 可以看到，仅仅是两层的卷积神经网络和层的全连接网络结构，在训练了10个epoch左右，也能够接近收敛，并且尊重的准确率到了64%左右。虽然这个结果并不高，但是对于这样简单的网络结构和较少的训练论述而言，也算是不错的结果。
 
@@ -27,7 +27,7 @@ Net(
 
 ResNet通过引入残差链接的方式，有效解决了模型层数过多的时候出现梯度消失的问题。ResNet中基本块的结构如下。
 
-<img src="E:\project\NKU-COSC0054-DeepLearning\Lab2-CNN\report\图片1.png" alt="图片1" style="zoom: 33%;" />
+<img src="图片1.png" alt="图片1" style="zoom: 33%;" />
 
 对于层数较少的ResNet，一般直接采用BasicBlock，其中包含两个 $3 \times 3$ 卷积层，得到的输出结果和该block的输入相加，这就是残差链接。通过残差连接，能够保证该block在进行梯度回传的时候，有一项的值为1，不会出现梯度消失的现象，使得网络能够通过增加层数来提升性能。
 
@@ -35,9 +35,9 @@ ResNet通过引入残差链接的方式，有效解决了模型层数过多的�
 
 为了保证实验对比的公平性，我们使用Adam优化器，学习率为0.001，训练了10个epoch，得到实验结果如图所示。
 
-<img src="E:\project\NKU-COSC0054-DeepLearning\Lab2-CNN\report\resnet_loss.png" alt="resnet_loss" style="zoom:150%;" />
+<img src="resnet_loss.png" alt="resnet_loss" style="zoom:150%;" />
 
-<img src="E:\project\NKU-COSC0054-DeepLearning\Lab2-CNN\report\resnet_acc.png" alt="resnet_acc" style="zoom:150%;" />
+<img src="resnet_acc.png" alt="resnet_acc" style="zoom:150%;" />
 
 从验证集的loss和准确率来看，ResNet的效果要明显优于之前的简单CNN结构，一方面是ResNet中使用了更深的网络层数和更大的隐藏层宽度，另一方面是ResNet中增加了残差链接，使得模型在训练的过程中参数能够得到更好地更新。由于ResNet中参数较多，对于本次实验的任务来讲很容易出现过拟合的现象，从实验结果中也能够看到一些过拟合的端倪。在训练的最后几个epoch中，训练集上的准确率还在提升，但是验证集上的准确率基本上已经稳定了，并且loss还有上升的趋势。
 
@@ -47,13 +47,13 @@ DenseNet也是一种深层神经网络的结构，他具有缓解梯度消失，
 
 DenseNet的结构如下。其中每一个基本块的结构和ResNet十分相似，Transition Layer(过渡层)：采用$1\times1$Conv和$2\times2$平均池化作为相邻Dense Block之间的转换层，减少feature map数和缩小feature map size，size指width*height。在相邻Dense Block中输出的feature map size是相同的，以便它们能够很容易的连接在一起。
 
-![image-20230618211533514](E:\project\NKU-COSC0054-DeepLearning\Lab2-CNN\report\image-20230618211533514.png)
+![image-20230618211533514](image-20230618211533514.png)
 
 然后为了保证实验对比的公平，在实验中实现了一个22层的DenseNet，其结构见最后附录。训练过程都是采用了Adam优化器，学习率为0.01，训练了10个epoch，得到训练结果如下。
 
-<img src="E:\project\NKU-COSC0054-DeepLearning\Lab2-CNN\report\dense_loss.png" alt="dense_loss" style="zoom:150%;" />
+<img src="dense_loss.png" alt="dense_loss" style="zoom:150%;" />
 
-<img src="E:\project\NKU-COSC0054-DeepLearning\Lab2-CNN\report\dense_acc.png" alt="dense_acc" style="zoom:150%;" />
+<img src="dense_acc.png" alt="dense_acc" style="zoom:150%;" />
 
 可以看到在本次实验中，DenseNet的性能要弱于ResNet，其原因大概是DenseNet的设计更加适合较深层的网络，而本次实现的DenseNet22相对来讲网络层数较浅，这样在进行特征拼接的时候，前几层的特征表示也不够好，导致影响到了后续的特征表示。
 
@@ -63,19 +63,19 @@ DenseNet的结构如下。其中每一个基本块的结构和ResNet十分相似
 
 具体而言，其实现方法是首先通过全局平均池化来获取到每一个通道中的信息，然后根据此通过一个两层的MLP，在经过sigmod计算出每一个通道的重要性，并通过这种门控机制，筛选更为有效的通道。其结构如下。
 
-<img src="E:\project\NKU-COSC0054-DeepLearning\Lab2-CNN\report\image-20230618210203415.png" alt="image-20230618210203415" style="zoom: 67%;" />
+<img src="image-20230618210203415.png" alt="image-20230618210203415" style="zoom: 67%;" />
 
 在对ResNet18进行改进之后，得到了Se-ResNet18，其结构见最后的附录。然后为了保证实验对比的公平，我们都是采用了Adam优化器，学习率为0.01，训练了10个epoch，得到训练结果如下。
 
-<img src="E:\project\NKU-COSC0054-DeepLearning\Lab2-CNN\report\se_loss.png" alt="se_loss" style="zoom:150%;" />
+<img src="se_loss.png" alt="se_loss" style="zoom:150%;" />
 
-<img src="E:\project\NKU-COSC0054-DeepLearning\Lab2-CNN\report\se_acc.png" alt="se_acc" style="zoom: 150%;" />
+<img src="se_acc.png" alt="se_acc" style="zoom: 150%;" />
 
 ## 实验对比
 
 在本次实验中，总共实现了基础CNN、ResNet18、SE-ResNet18和DenseNet22网络，并且在相同的实验设定下进行测试，在训练阶段，全部采用Adam优化器，学习率为0.01，训练10个epoch。得到对比结果如下。
 
-![acc](E:\project\NKU-COSC0054-DeepLearning\Lab2-CNN\report\acc.png)
+![acc](acc.png)
 
 从实验结果上可以看出，普通的CNN结构效果最差，这里主要原因是因为CNN网络的层数相对较浅，对于特征的表示能力比较弱。
 

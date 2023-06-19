@@ -26,9 +26,9 @@ Net(
 
 在实验中，训练使用的是MNIST手写数字识别的数据集，采用交叉熵损失函数，使用SGD作为优化器，学习率为0.01，方便起见，只训练了20个epoch，在验证集上的损失函数值和准确率如下图所示。
 
-<img src="E:\project\NKU-COSC0054-DeepLearning\Lab1-MLP\report\mlp_loss.png" alt="mlp_loss" style="zoom:150%;" />
+<img src="mlp_loss.png" alt="mlp_loss" style="zoom:150%;" />
 
-<img src="E:\project\NKU-COSC0054-DeepLearning\Lab1-MLP\report\mlp_acc.png" alt="mlp_acc" style="zoom:150%;" />
+<img src="mlp_acc.png" alt="mlp_acc" style="zoom:150%;" />
 
 可以看到，经过20的epoch之后，在验证集上的效果已经收敛，并最终取得了
 
@@ -40,9 +40,9 @@ Net(
 
 首先对比了不同的MLP层数对最终实验结果的影响，对所有的网络都训练了20个epoch，得到实验结果如下
 
-<img src="E:\project\NKU-COSC0054-DeepLearning\Lab1-MLP\report\layer_loss.png" alt="layer_loss" style="zoom:150%;" />
+<img src="layer_loss.png" alt="layer_loss" style="zoom:150%;" />
 
-<img src="E:\project\NKU-COSC0054-DeepLearning\Lab1-MLP\report\layer_acc.png" alt="layer_acc" style="zoom:150%;" />
+<img src="layer_acc.png" alt="layer_acc" style="zoom:150%;" />
 
 从实验结果可以看出，单层的MLP拟合能力有限，并不能够随着训练的epoch增加进一步提升性能。3层和5层的MLP都能够得到很好的预测结果，并且两者并没有什么明显的差异。因此可以看出，MLP的层数更多能够起到提升效果的作用，但是当MLP的层数和任务的复杂度相匹配之后，再提升MLP的层数并不能够取得性能收益。并且从图中可以看出，3层的MLP的性能要略高于5层MLP，说明MLP的层数过多，可能会导致梯度回传的过程中最后几层出现梯度消失的问题，进而影响模型的训练结果。
 
@@ -50,9 +50,9 @@ Net(
 
 然后还对比了不同的隐藏层大小，为了保证实验的公平，都采用3层的MLP进行比较。得到实验结果如下。
 
-<img src="E:\project\NKU-COSC0054-DeepLearning\Lab1-MLP\report\wide_loss.png" alt="wide_loss" style="zoom:150%;" />
+<img src="wide_loss.png" alt="wide_loss" style="zoom:150%;" />
 
-<img src="E:\project\NKU-COSC0054-DeepLearning\Lab1-MLP\report\wide_acc.png" alt="wide_acc" style="zoom:150%;" />
+<img src="wide_acc.png" alt="wide_acc" style="zoom:150%;" />
 
 从实验结果中可以看出，逐渐增加隐藏层的宽度有利于提升网络性能，这是用于隐藏层的宽度增加，能够表示更多的特征，也就可以让不同的类别在隐藏层的中间表示中能够具有更强的辨识度，进而对于最终的分类结果能够进行提升。
 
@@ -60,9 +60,9 @@ Net(
 
 然后还对比了不同的隐藏层大小，为了保证实验的公平，都采用3层的MLP进行比较。得到实验结果如下。
 
-<img src="E:\project\NKU-COSC0054-DeepLearning\Lab1-MLP\report\lr_loss.png" alt="lr_loss" style="zoom:150%;" />
+<img src="lr_loss.png" alt="lr_loss" style="zoom:150%;" />
 
-<img src="E:\project\NKU-COSC0054-DeepLearning\Lab1-MLP\report\lr_acc.png" alt="lr_acc" style="zoom:150%;" />
+<img src="lr_acc.png" alt="lr_acc" style="zoom:150%;" />
 
 从学习率的变化来看，学习率为0.1和0.01对于一般的训练来说都是比较大的学习率，此时可以看出模型很快就能够收敛。并且由于训练任务相对比较简单，优化器即使使用了较大的学习率仍能够找到较优解，而不会因为学习率过大导致不能够收敛到最优点。而当学习率为0.001的时候，对于本任务而言学习率相对较小，可以看出模型的收敛速度明显放慢，并且到训练后期的时候，模型的准确率不能够很好提升，这是因为使用较小的学习率可能使得模型陷入局部最优解而无法跳出。
 
@@ -70,7 +70,7 @@ Net(
 
 Vision Permutator是一种使用MLP来实现和Vision Transformer同样效果的方式。ViP首先将输入的图像按照行列打成多个patch，然后将每个patch都进行embedding，随后分别在行方向，列方向和通道方向上做MLP，这样就使得抽取到的特征即融合了行列之间的空间关系，由包含有通道之间的特征。最后将三个方向的特征加和然后对patch之间求平均值，作为最后进行分类的特征。其结构图如下，引自原始论文。
 
-![image-20230618160432231](E:\project\NKU-COSC0054-DeepLearning\Lab1-MLP\report\image-20230618160432231.png)
+![image-20230618160432231](image-20230618160432231.png)
 
 本次实验中使用的模型结构打印如下
 
@@ -212,8 +212,8 @@ Vip(
 
 在我们的实验中，为了尽可能保证实验的公平性，和最终结果的有效性，我们只实现了简单的6层的ViP，然后patch的大小设置为2。得到实验结果如下。
 
-<img src="E:\project\NKU-COSC0054-DeepLearning\Lab1-MLP\report\vip_loss.png" alt="vip_loss" style="zoom:150%;" />
+<img src="vip_loss.png" alt="vip_loss" style="zoom:150%;" />
 
-<img src="E:\project\NKU-COSC0054-DeepLearning\Lab1-MLP\report\vip_acc.png" alt="vip_acc" style="zoom:150%;" />
+<img src="vip_acc.png" alt="vip_acc" style="zoom:150%;" />
 
 从训练上来看，两者的性能差异不大，但是由于VIP有更大的参数量，并且其需要分为行、列和通道三种进行计算，所以相对MLP而言计算量要大很多，因此收敛的速度相对更慢，并且训练一个epoch所需要的时间会更长。
