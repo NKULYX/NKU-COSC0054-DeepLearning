@@ -19,9 +19,9 @@ Generator(
 
 为了更好使得生成器和判别器之间进行对抗训练，选用了Adam优化器，设置学习率为0.0002，训练了10个epoch，得到生成器和判别器的loss曲线如下。
 
-<img src="E:\project\NKU-COSC0054-DeepLearning\Lab4-GAN\report\dis_loss.png" alt="dis_loss" style="zoom:150%;" />
+<img src="dis_loss.png" alt="dis_loss" style="zoom:150%;" />
 
-<img src="E:\project\NKU-COSC0054-DeepLearning\Lab4-GAN\report\g_loss.png" alt="g_loss" style="zoom:150%;" />
+<img src="g_loss.png" alt="g_loss" style="zoom:150%;" />
 
 ## 使用卷积实现生成器和判别器
 
@@ -54,37 +54,37 @@ CNNGenerator(
 
 为了更好使得生成器和判别器之间进行对抗训练，并且保证实验对比的公平性，同样选用了Adam优化器，设置学习率为0.0002，训练了10个epoch，得到生成器和判别器的loss曲线如下。
 
-<img src="E:\project\NKU-COSC0054-DeepLearning\Lab4-GAN\report\gen_loss.png" alt="gen_loss" style="zoom:150%;" />
+<img src="gen_loss.png" alt="gen_loss" style="zoom:150%;" />
 
-<img src="E:\project\NKU-COSC0054-DeepLearning\Lab4-GAN\report\dis_loss.png" alt="dis_loss" style="zoom:150%;" />
+<img src="dis_loss.png" alt="dis_loss" style="zoom:150%;" />
 
 可以看到，经过了3个epoch之后，生成器和判别器都具有了一定的生成能力和判别能力，随后的epoch就是两个进行对抗训练的过程，因此两者的loss基本保持不变。
 
 ## 随机生成一组图片
 
-<img src="E:\project\NKU-COSC0054-DeepLearning\Lab4-GAN\report\output.png" alt="output" style="zoom:200%;" />
+<img src="output.png" alt="output" style="zoom:200%;" />
 
 ## 调整随机数
 
 在实验中，分别选择100维随机数的第20、50、60、70和90维，将其上下调整10，得到三组随机数，然后生成对应的图片。其中第一行是减小10的结果，第二行是原始结果，第三行是增加10的结果。
 
-<img src="E:\project\NKU-COSC0054-DeepLearning\Lab4-GAN\report\20.png" alt="20" style="zoom:150%;" />
+<img src="20.png" alt="20" style="zoom:150%;" />
 
 将第20维进行上下波动之后，可以发现，减小第20维的数值的时候，更倾向于生成裤子的图片，而增加第20维的数值的时候，更倾向于生成高跟鞋的图片，因此可以判断这一维度主要用来区分裤子和高跟鞋。
 
-<img src="E:\project\NKU-COSC0054-DeepLearning\Lab4-GAN\report\50.png" alt="50" style="zoom:150%;" />
+<img src="50.png" alt="50" style="zoom:150%;" />
 
 将第50维进行上下波动后，可以发现，减小第50维的数值的时候，更倾向于生成上衣的图片，而增加第50维的数值的时候，更倾向于生成皮鞋的图片，因此可以判断这一维度主要用来区分上衣和皮鞋。此外还能够看出，减小第50维的数值的时候，图像的亮度和清晰度会更高，说明第50维和生成上衣的关系十分密切。而增加第50维的数值的时候，图像的亮度和清晰度都降低，说明第50维虽然和皮鞋相关，但相关性并不高。
 
-<img src="E:\project\NKU-COSC0054-DeepLearning\Lab4-GAN\report\60.png" alt="60" style="zoom: 150%;" />
+<img src="60.png" alt="60" style="zoom: 150%;" />
 
 将第60维进行上下波动之后，可以发现，减小第60维的数值的时候，更倾向于生成鞋子的图片，而增加第60维的数值的时候，更倾向于生成连衣裙的图片，因此可以判断这一维度主要用来区分鞋子和连衣裙。
 
-<img src="E:\project\NKU-COSC0054-DeepLearning\Lab4-GAN\report\70.png" alt="70" style="zoom:150%;" />
+<img src="70.png" alt="70" style="zoom:150%;" />
 
 将第70维进行上下波动后，可以发现，减小第70维的数值的时候，更倾向于生成上衣的图片，而增加第70维的数值的时候，更倾向于生成裤子的图片，因此可以判断这一维度主要用来区分上衣和裤子。此外还能够看出，减小第70维的数值的时候，图像的亮度和清晰度会降低，说明第70维和生成上衣相关，但相关性并不高。而增加第70维的数值的时候，图像的亮度和清晰度提升，说明第70维虽然和皮鞋的关系十分密切。
 
-<img src="E:\project\NKU-COSC0054-DeepLearning\Lab4-GAN\report\90.png" alt="90" style="zoom:150%;" />
+<img src="90.png" alt="90" style="zoom:150%;" />
 
 将第90维进行上下波动后，可以发现，减小第90维的数值的时候，更倾向于生成上衣的图片，而增加第90维的数值的时候，更倾向于生成靴子的图片，因此可以判断这一维度主要用来区分上衣和靴子。
 
